@@ -88,8 +88,7 @@ class userController{
             const dbtoken = await Token.findOne({where:{id}})
             const candidate = await User.findOne({where:{id}})
             if(refresh_token!==dbtoken.refresh_token || !dbtoken){
-                // res.clearCookie('refresh_token');
-                console.log(dbtoken.refresh_token)
+                res.clearCookie('refresh_token');
                 return next(error.notFound("Wrong data"))
             }
             const access_token = generateAccessToken(candidate.id, candidate.email, candidate.first_name)

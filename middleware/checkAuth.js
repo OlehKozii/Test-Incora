@@ -12,7 +12,6 @@ module.exports = async function checkAuth(req, res, next) {
             return next(error.unauthorized("No token"));
         }
         const decoded = jwt.verify(token, process.env.secret)
-        console.log(decoded)
         const candidate = await User.findOne({where:{email:decoded.email}})
         if (!candidate) {
             return next(error.unauthorized("Corrupted token"));
